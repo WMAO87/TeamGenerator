@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+header {
+    height: 150px;
+    background-color: blue;
+    text-align: center;
+}
+h1 {
+    padding: 50px;
+    color: black;
+}
+.card {
+    border: 1px solid black;
+    float: left;
+}
