@@ -17,8 +17,8 @@ function createEmployee() {
         },
         {
             type: "list",
+            name: "position",
             message: "What is your position?",
-            name: "position"
             choices: ["manager", "engineer", "intern"]
         },
         {
@@ -48,3 +48,99 @@ function createEmployee() {
 
     });
 }
+
+class Manager extends Profile {
+    constructor(name, id, email, num) {
+        super(name, "Manager", id, email)
+        this.office = num
+    }
+}
+class Engineer extends Profile {
+    constructor(name, id, email, num) {
+        super(name, "Engineer", id, email)
+        this.office = num
+    }
+}  
+class Intern extends Profile {
+    constructor(name, id, email, num) {
+        super(name, "Engineer", id, email)
+        this.office = num
+    }
+} 
+function manager(name, id, email) {
+    inquirer.prompt ([{
+        type: "input",
+        message: "What is your office number?",
+        name: "off"
+    }])
+    .then(function (response) {
+        let offNum = response.off
+        let user = name
+        let idy = id
+        let em = email
+        let newUser = new Manager (user, idy, em, offNum)
+        team.push(newUser)
+        howMany();
+    })
+}
+function engineer(name, id, email) {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your github username?",
+                name: "user"
+            }])
+        .then(function (response) {
+            let usNam = response.user
+            let user = name
+            let idy = id
+            let em = email
+            let newUser = new Engineer(user, idy, em, usNam)
+            team.push(newUser);
+            howMany();
+            
+        })
+} 
+function intern(name, id, email) {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What school do you attend?",
+                name: "schol"
+            }])
+        .then(function (response) {
+            let schol = response.schol
+            let user = name
+            let idy = id
+            let em = email
+            let newUser = new Intern(user, idy, em, schol)
+            team.push(newUser);
+            howMany();
+        })
+}
+function howMany() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                name: "count",
+                message: "Would you like to create another?",
+                choices: ["yes", "no"]
+            },
+        ])
+        .then(function (response) {  
+            if(response.count === "yes") {         
+                createEmployee();
+            } else {
+                team = JSON.stringify(team);
+                 console.log(team);
+                 fs.appendFile('index.html', generateHTML(team), function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  });
+            }
+        })
+}
+createEmployee();
