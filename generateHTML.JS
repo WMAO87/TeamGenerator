@@ -21,7 +21,7 @@ result += `
         <li class="list-group-item">${team[i].id}</li>
         <li class="list-group-item">${team[i].email}</li>
         <li class="list-group-item">${fifth}</li>
-    </ul>
+      </ul>
     </div>
     </body>
     </html>`;
@@ -29,3 +29,4 @@ result += `
     return result;
 }
 module.exports = generateHTML;
+
